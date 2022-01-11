@@ -1,11 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import cover from '../assets/cover.jpg';
 import './Profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import  SpacingGrid from './views/aboutme'
+import Container from '@material-ui/core/Container'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import indigo from '@material-ui/core/colors/indigo';
+import green from '@material-ui/core/colors/green';
+import Zoom from 'react-reveal/Zoom'
+import BackgroundImagePage from './views/begins/begins'
+import Resume from './views/resume'
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 library.add(faTrash);
-
+const theme = createMuiTheme({
+  palette: {
+    primary: indigo,
+    secondary: green,
+  },
+  status: {
+    danger: 'orange',
+  },
+});
 function Profile(props) {
   const[picture,setPicture]=useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
     
@@ -52,21 +69,35 @@ function Profile(props) {
             <div className="avatar">
                 <img src={cover} alt="coverpic"/>
             </div>
-            <div className="name">
+            {/* <div className="name">
                 <h2>{props.name} {props.last}</h2>
-            </div>
+            </div> */}
         </div>
         <div className="photo">
             <div className="avatar2">
                 <img src={props.imageURL} alt="" id="img" className="img" />
             </div>
-            <div className="image-upload">
-              <input type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler} />
+            {/* <div className="image-upload">
+              <input type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler} /> */}
                 {/* <label className="image-upload" htmlFor="input">Choose your photo</label> */}
-            </div>
+            {/* </div> */}
         </div>
       </div>
-      <div className="main">
+
+      <MuiThemeProvider theme={theme}>
+{/* 
+      <div  >
+        <ButtonAppBar></ButtonAppBar>  
+      </div> */}
+      {/* <BackgroundImagePage></BackgroundImagePage> */}
+      <Zoom>
+        <Container>  <SpacingGrid></SpacingGrid> </Container>
+          {/* <Container> <Resume></Resume></Container> */}
+      </Zoom>
+     
+      
+      </MuiThemeProvider>
+      {/* <div className="main">
         <div className="card">
             <h3>ABOUT</h3>
             <div class="description">
@@ -93,9 +124,57 @@ function Profile(props) {
             }  
             </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
 
 export default Profile;
+
+
+
+
+
+
+
+// function Profile (props)  {
+//   const[picture,setPicture]=useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png");
+ 
+
+//    const imageHandler = (e) => {
+//       setPicture(URL.createObjectURL(e.target.files[0]));
+//     };
+
+   
+//   return (
+    
+//     <div className="App">
+//           <div className="container">
+//        <div className="cover">
+//            <div className="avatar">
+//                <img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt="coverpic"/>
+//            </div>
+//             <div className="name">
+//                 <h2>{props.name} {props.last}</h2>
+//             </div>
+//          </div>
+//         <div className="photo">
+//             <div className="avatar2">
+//                 <img src={props.imageURL} alt="" id="img" className="img" />
+//              </div>
+//              <div className="image-upload">
+//                <input type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler} />
+//                 {/* <label className="image-upload" htmlFor="input">Choose your photo</label> */}             </div>
+//          </div>
+//        </div>
+     
+  
+           
+      
+//     </div>
+   
+//   );
+//   }
+
+// export default Profile;
+

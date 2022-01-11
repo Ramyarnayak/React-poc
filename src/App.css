@@ -1,28 +1,27 @@
 
 
 .logout-btn-div{
-    background-color: #060b26;
+ 
     height:  80px;
     width:80px;
     float:right;
     position: relative;
     top:-80px;
     display: flex;
-      
+    left: -100px;
     align-items: center;
 
 
   }
   
 .logout-btn{
- 
     border-radius: 3px;
-    border: 1px solid black;
     font-weight: bold;
     height:35px;
     width:70px;
 
 }
+
 .login-btn {
   display: inline-block;
   margin:200px 500px 200px 500px;
@@ -72,4 +71,7 @@
   to {
     transform: rotate(360deg);
   }
+}
+.appBody {
+  display: flex;
 }
