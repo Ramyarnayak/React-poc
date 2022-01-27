@@ -1,62 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import './Feed.css';
+import React, { useEffect, useState } from 'react'
+import './Feed.css'
+import db from './../firebase'
+import MessageSender from './MessageSender/MessageSender'
+import Post from './Post/Post'
+import Comments  from '../utility/Comments'
+import StoryReel from './StoryReel/StoryReel'
 
-// components
-import StoryReel from './StoryReel/StoryReel';
-import MessageSender from './MessageSender/MessageSender';
-import Post from './Post/Post';
+function Feed() {
 
-// // image
-// import arif from '../img/story/arif.jpg'
-// import postImage from '.. /img/story/storyImage/web-development.jpg'
-
-// database
-import db from '../firebase'
-
-const Feed = ({name, last, imageURL }) => {
     const [posts, setPosts] = useState([]);
 
 
+    const [postUsername, setPostUsername] = useState(null);
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [openComments, setOpenComments] = useState(false);
+    const [selectedPost, setSelectedPost] = useState(null);
+  
+//Fetching data from collection and listens any change in the collection(database)
     useEffect(() => {
-        db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-            setPosts(snapshot.docs.map(doc => ({ id: doc.id, data: doc.data() })));
-        })
-    }, [])
+        db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) =>
+            setPosts(
+              snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+            )
+          );
+    }, []);
 
     return (
-        <div className="feed">
-            <StoryReel />
-            <MessageSender  name={name} last={last} imageURL={imageURL}/>
-            
-            {
-                posts.map(post => (
-                    <Post 
-                        key={post.data.id}
-                        profilePic={post.data.profilePic}
-                        message={post.data.message}
-                        timestamp={post.data.timestamp}
-                        username={name}
-                        image={post.data.image}
-                    />
-                ))
-            }
-            {/* <Post 
-                key='1'
-                profilePic={arif}
-                message='WOW this works!'
-                timestamp='This is a timestamp'
-                username='devarif'
-                image={postImage}
-            />
-            <Post 
-                key='2'
-                profilePic={arif}
-                message='WOW this works!'
-                timestamp='This is a timestamp'
-                username='devarif'
-            /> */}
-        </div>
-    )
+      <div className="feed">
+        {/* StoryReel */}
+        <StoryReel />
+
+        {/* MessageSender */}
+        <MessageSender  posts={posts}/>
+
+        {/* Post */}
+        {posts.map((post) => (
+     
+          <Post
+
+            key={post.id}
+            profilePic={post.data.profilePic}
+            message={post.data.message}
+            timestamp={post.data.timestamp}
+            username={post.data.username}
+            image={post.data.image}
+            post1={post.data}
+          />
+
+
+
+
+       
+   
+    
+
+        ))}
+
+      </div>
+    );
 }
 
-export default Feed;
+export default Feed
+

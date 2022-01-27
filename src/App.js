@@ -1,83 +1,58 @@
-
-import React from "react";
-import GoogleLogin from "react-google-login";
-import { GoogleLogout } from "react-google-login";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-import Friend from './Pages/Friend'
-import Home from './Pages/Home'
-import Profile from './Pages/Profile'
+import { BrowserRouter , Route, Routes } from 'react-router-dom';
+import Login from './auth/Login/Login';
+import { useStateValue } from './state/Provider'
+import Feed from './Feed/Feed'
+import Friend from './Pages/Friend/Friend'
+import Home from './Pages/News/Home'
+import Profile from './Pages/Profile/Profile'
 import './App.css'
-import Feed from './Feed/Feed';
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
-
-import { Button } from '@material-ui/core';
 import CovidPage from "./Pages/CovidPage";
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      userDetails: {},
-      isUserLoggedIn: false
-    };
-  }
-  responseGoogle = response => {
-    this.setState({ userDetails: response.profileObj, isUserLoggedIn: true });
-  };
+import Profile1 from './utility/Profile';
+import Covid from './Pages/Covid/App';
+import NewsPage from './Pages/NewsPage/components/NewsPage'
+function App () {
 
-  logout = () => {
-    this.setState({isUserLoggedIn: false})
-  };
+  const [{ user }, dispatch] = useStateValue();
 
-  render() {
     return (
       <div className="App">
-        {!this.state.isUserLoggedIn && (
-          
-          <GoogleLogin className="login"
-            clientId="600945460752-k3bi9hqvfu3t4no6iufl1rlpig5k1r3p.apps.googleusercontent.com" //TO BE CREATED
-          
-           
-            render={renderProps => (
-            <Button     onClick={renderProps.onClick}
-            disabled={renderProps.disabled} variant="contained">Login with Google</Button>
-            )}
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseGoogle}
-          />
-        )}
-        {this.state.isUserLoggedIn && (
-          <div className="userDetails-wrapper">
-            <div className="details-wrapper">
-           
-    <Router>
-      <Header name={this.state.userDetails.givenName} last={this.state.userDetails.familyName} imageURL={this.state.userDetails.imageUrl}/>
-           <div className="appBody">
-              <Sidebar name={this.state.userDetails.givenName} last={this.state.userDetails.familyName} imageURL={this.state.userDetails.imageUrl}
-             logout = {this.logout} 
-             />
-
-              <Switch>
-                 <Route path='/feed'
-                 render={()=>(<div><Feed name={this.state.userDetails.givenName} last={this.state.userDetails.familyName} imageURL={this.state.userDetails.imageUrl}/></div>)}
-                 />
-          <Route path='/news' component={Home} />
-           <Route path='/profile' render={()=>(<div><Profile name={this.state.userDetails.givenName} last={this.state.userDetails.familyName} imageURL={this.state.userDetails.imageUrl}/></div>)} />
-           <Route path='/friends' component={Friend} />
-           <Route path='/covid' component={CovidPage} />
-          </Switch>
-            </div> 
-       
-             
-      
-          </Router>   
-            </div>
-          </div>
-        )}
-      </div>
+        { !user ? <Login />
+        : (
+          <>
+            <Header />  
+            <BrowserRouter>
+              <div className="appBody">
+              <Sidebar/>
+              <Routes>
+                 {/* <Route exact path='/' element={<Feed/>}/>
+                 <Route path='/news' element={<NewsPage/>} />
+                 <Route path='/profile' element={<Profile/>}/>
+                 <Route path='/friends' element={<Friend/>} /> */}
+                 <Route path='/covid' element={<Covid/>} />
+                 </Routes>
+                 <Routes>
+                 <Route exact path='/' element={<Feed/>}/>
+                 </Routes>
+                 <Routes>
+                 <Route path='/news' element={<NewsPage/>} />
+                 </Routes>
+                 <Routes>
+                 <Route path='/profile' element={<Profile/>}/>
+                 </Routes>
+                 <Routes>
+                 <Route path='/friends' element={<Friend/>} /> 
+                 </Routes>
+              </div> 
+              </BrowserRouter> 
+          </> 
+       )
+      }
+    </div>
     );
   }
-}
+
 
 export default App;
+

@@ -40,9 +40,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function NestedGrid() {
+export default function NestedGrid({user, bio}) {
   const classes = useStyles();
-
   function WebIcons(props) {
     return (
       <WebIcon {...props}>
@@ -60,17 +59,17 @@ export default function NestedGrid() {
         
         <Box className = {classes.paper}>
             <Typography variant="h5" color="textSecondary" component="p" >
-                I hope it will help you for our Friendshiop.
+         Hey {user.displayName}, Please chhose Edit option to add description
+                I hope it will help you for our Friendship.
             </Typography>
         </Box>  
 
         <Box className = {classes.paper}>
             <Typography variant="body1"  component="p" >
-            Unique utilize plug-and-play best practices vis-a-vis out ofbox strategic theme area. Efficient enga backward-compatible collaboration and idea-share before our client based functionalities. Rapidiously visualize world-class architectures with mission critical intellectual capital. Progressively myocardinate state of the art ROI. Monotonectally disseminate unique methods of empowerment.
             </Typography>
         </Box> 
         <Box className = {classes.paper}>
-            <Dividers></Dividers>
+            <Dividers user={user} bio={bio}></Dividers>
         </Box> 
 
         
@@ -91,7 +90,7 @@ export default function NestedGrid() {
             <Typography  variant="h4" color="primary" component="p" >MY HOBBIES</Typography>
             </Box>
             <Box >
-            <Typography  variant="h6" color="textSecondary" component="p" >Sketching</Typography>
+            <Typography  variant="h6" color="textSecondary" component="p" >{bio.hobbies}</Typography>
             <PrettoSlider  valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={80}></PrettoSlider>
             </Box>
             <Box >
@@ -153,14 +152,13 @@ export default function NestedGrid() {
         </Grid>
         
         
-        <Grid  container item  direction="row" xs={6} sm ={6} spacing={2}  >
+        {/* <Grid  container item  direction="row" xs={6} sm ={6} spacing={2}  >
          
           <FormRowTwo />
          
-        </Grid>
+        </Grid> */}
         
         
-       
       </Grid>
     </div>
   );

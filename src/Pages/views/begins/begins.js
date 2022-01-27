@@ -1,12 +1,11 @@
 import React from "react";
-import "./index.css";
+import "./begin.css";
 import {Grid,Box ,Typography} from '@material-ui/core'
-// import Fade from 'react-reveal/Fade';
+
 export default function  BackgroundImagePage() {
-  return (<div className="bg" >
-     {/* <Fade right> */}
-      <div  className ="centered">
-        
+  return (
+  <div className="bg" >
+      <div  className ="centered">   
       <Grid  
             container
             direction="column"
@@ -14,18 +13,14 @@ export default function  BackgroundImagePage() {
             alignItems="center"
           >
           <Grid >
-        
-                <Box >      
-                     <Typography   variant="h2"  component="p" >
-                         WEB DESIGN 
-                    </Typography>
+            <Box >      
+            <Typography   variant="h2"  component="p" >
+              WEB DESIGN 
+              </Typography>
             </Box>
-               
            </Grid>
-        </Grid>
-       
-            </div> 
-    {/* </Fade> */}
-  </div>
-     )
+      </Grid>
+      </div> 
+    </div>
+    )
 };

@@ -19,18 +19,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function InsetDividers() {
+export default function InsetDividers({user, bio}) {
   const classes = useStyles();
-
+// console.log(user, name, dob)
   return (
-    <List className={classes.root}>
+  
+    <List lassName={classes.root}c>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
             <ImageIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="NAME : " secondary="Ramya R Nayak" />
+        <ListItemText primary="NAME : " secondary={bio.name} />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -39,7 +40,7 @@ export default function InsetDividers() {
             <BeachAccessIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="EMAIL" secondary="ramyagph@.com" />
+        <ListItemText primary="EMAIL" secondary={user.email} />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -48,7 +49,7 @@ export default function InsetDividers() {
             <BeachAccessIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="DATE OF BIRTH" secondary="10 oct 1998" />
+        <ListItemText primary="DATE OF BIRTH" secondary={bio.dob} />
       </ListItem>
     </List>
   );

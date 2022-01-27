@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 });
 
 
-export default function  Resume() {
+export default function  Resume({user, bio}) {
     const classes = useStyles();
     
     function FormRow() {
